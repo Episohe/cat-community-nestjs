@@ -1,11 +1,11 @@
-import { Body, UseFilters, UseInterceptors } from '@nestjs/common';
-import { Controller, Get, Post, Put } from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
-import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
-import { CatsService } from './cats.service';
-import { CatRequestDto } from './dto/cats.request.dto';
+import { Body, UseFilters, UseInterceptors } from "@nestjs/common";
+import { Controller, Get, Post, Put } from "@nestjs/common";
+import { HttpExceptionFilter } from "src/common/exceptions/http-exception.filter";
+import { SuccessInterceptor } from "src/common/interceptors/success.interceptor";
+import { CatsService } from "./cats.service";
+import { CatRequestDto } from "./dto/cats.request.dto";
 
-@Controller('cats')
+@Controller("cats")
 @UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)
 export class CatsController {
@@ -13,27 +13,27 @@ export class CatsController {
 
   @Get()
   getCurrentCat() {
-    return 'current cat';
+    return "current cat";
   }
 
   @Post()
   async signUp(@Body() body: CatRequestDto) {
     console.log(body);
-    return 'signup';
+    return await this.catsService.signUp(body);
   }
 
-  @Post('login')
+  @Post("login")
   logIn() {
-    return 'login';
+    return "login";
   }
 
-  @Post('logout')
+  @Post("logout")
   logOut() {
-    return 'logout';
+    return "logout";
   }
 
-  @Post('upload/cats')
+  @Post("upload/cats")
   uploadCatImg() {
-    return 'uploadImg';
+    return "uploadImg";
   }
 }
