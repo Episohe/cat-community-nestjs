@@ -5,6 +5,7 @@ import { AppModule } from "./app.module";
 import { HttpExceptionFilter } from "./common/exceptions/http-exception.filter";
 import * as expressBasicAuth from "express-basic-auth";
 import { NestExpressApplication } from "@nestjs/platform-express";
+import * as path from "path";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -19,6 +20,9 @@ async function bootstrap() {
       },
     })
   );
+  app.useStaticAssets(path.join(__dirname, "./common", "uploads"), {
+    prefix: "/media",
+  });
 
   const config = new DocumentBuilder()
     .setTitle("C.I.C")

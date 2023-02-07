@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Req } from '@nestjs/common';
-import { Request } from 'express';
-import { AppService } from './app.service';
-import { CatsService } from './cats/cats.service';
+import { Body, Controller, Get, Param, Req } from "@nestjs/common";
+import { Request } from "express";
+import { AppService } from "./app.service";
+import { CatsService } from "./cats/service/cats.service";
 
 @Controller()
 export class AppController {
@@ -9,6 +9,6 @@ export class AppController {
 
   @Get()
   getHello() {
-    return 'hello world';
+    return "hello world";
   }
 }

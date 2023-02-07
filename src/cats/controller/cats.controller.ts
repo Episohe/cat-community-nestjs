@@ -3,20 +3,22 @@ import {
   Controller,
   Get,
   Post,
+  UploadedFile,
   UseFilters,
   UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
 import { HttpExceptionFilter } from "src/common/exceptions/http-exception.filter";
 import { SuccessInterceptor } from "src/common/interceptors/success.interceptor";
-import { CatsService } from "./cats.service";
-import { CatRequestDto } from "./dto/cats.request.dto";
+import { CatsService } from "../service/cats.service";
+import { CatRequestDto } from "../dto/cats.request.dto";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { ReadOnlyCatDto } from "./dto/cat.dto";
-import { AuthService } from "../auth/auth.service";
-import { LoginRequestDto } from "../auth/dto/login.request.dto";
-import { CurrentUser } from "../common/decorators/user.decorator";
-import { JwtAuthGuard } from "../auth/jwt/jwt.guard";
+import { ReadOnlyCatDto } from "../dto/cat.dto";
+import { AuthService } from "../../auth/auth.service";
+import { LoginRequestDto } from "../../auth/dto/login.request.dto";
+import { CurrentUser } from "../../common/decorators/user.decorator";
+import { JwtAuthGuard } from "../../auth/jwt/jwt.guard";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 @Controller("cats")
 @UseInterceptors(SuccessInterceptor)
@@ -51,9 +53,9 @@ export class CatsController {
   logIn(@Body() data: LoginRequestDto) {
     return this.authService.jwtLogIn(data);
   }
-  @ApiOperation({ summary: "고양이 이미지 업로드" })
-  @Post("upload/cats")
-  uploadCatImg() {
-    return "uploadImg";
+  @ApiOperation({ summary: "모든 고양이 가져오기" })
+  @Get("all")
+  getAllCat() {
+    return this.catsService.getAllCat();
   }
 }
